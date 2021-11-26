@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "283157472635",
+    "firebase_url": "https://deone-3dffd-default-rtdb.firebaseio.com",
+    "project_id": "deone-3dffd",
+    "storage_bucket": "deone-3dffd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283157472635:android:35405b97cf1d679d4e89de",
+        "android_client_info": {
+          "package_name": "com.deone.xaides"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283157472635-jeasmp4795c66gmedi2go9go6rsih555.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvE0Y24EwWqb1ZpN2ryYhlnVpw6qEWL6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283157472635-jeasmp4795c66gmedi2go9go6rsih555.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283157472635:android:9b5bfa0376f5da644e89de",
+        "android_client_info": {
+          "package_name": "com.deone.xpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283157472635-jeasmp4795c66gmedi2go9go6rsih555.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvE0Y24EwWqb1ZpN2ryYhlnVpw6qEWL6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283157472635-jeasmp4795c66gmedi2go9go6rsih555.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
