@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Xpro</string>
+    <string name="logo">TODO LOGO</string>
+    <string name="login">Votre adresse mail</string>
+    <string name="pass">Votre mot de passe</string>
+    <string name="confpass">Confirmez votre mot de passe</string>
+    <string name="conn">CONNEXION</string>
+    <string name="newaccount">Créer un nouveau compte</string>
 </resources>
