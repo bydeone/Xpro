@@ -5,5 +5,7 @@
     <string name="pass">Votre mot de passe</string>
     <string name="confpass">Confirmez votre mot de passe</string>
     <string name="conn">CONNEXION</string>
+    <string name="creationaccount">CREER VOTRE COMPTE</string>
     <string name="newaccount">Créer un nouveau compte</string>
+    <string name="ihaveaccount">j\'ai un compte</string>
 </resources>

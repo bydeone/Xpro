@@ -11,69 +11,82 @@
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/exchange" />
 
-    <EditText
-        android:id="@+id/edtvLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rlCentre"
         android:layout_below="@+id/ivLogo"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:hint="@string/login"
-        android:inputType="textEmailAddress"
-        android:padding="20dp" />
-
-    <EditText
-        android:id="@+id/edtvPassword"
+        android:layout_centerVertical="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtvLogin"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:hint="@string/pass"
-        android:inputType="textPassword"
-        android:padding="20dp" />
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/edtvConfPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtvPassword"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:hint="@string/confpass"
-        android:inputType="textPassword"
-        android:padding="20dp" />
+        <EditText
+            android:id="@+id/edtvLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:hint="@string/login"
+            android:inputType="textEmailAddress"
+            android:padding="20dp" />
 
-    <TextView
-        android:id="@+id/tvNewaccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtvConfPassword"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:text="@string/newaccount"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/edtvPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtvLogin"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:hint="@string/pass"
+            android:inputType="textPassword"
+            android:padding="20dp" />
+
+        <EditText
+            android:id="@+id/edtvConfPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtvPassword"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:hint="@string/confpass"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvNewaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtvConfPassword"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="@string/newaccount"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btLogCreate"
+        android:layout_below="@+id/rlCentre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNewaccount"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
