@@ -8,4 +8,26 @@
     <string name="creationaccount">CREER VOTRE COMPTE</string>
     <string name="newaccount">Créer un nouveau compte</string>
     <string name="ihaveaccount">j\'ai un compte</string>
+    <string name="email_error">Erreur lors de la saisie de l\'adresse email.</string>
+    <string name="password_error">Erreur lors de la saisie du mot de passe.</string>
+    <string name="password_conf_error">Erreur de confirmation du mot de passe.</string>
+    <string name="create_account_ok">Création de compte réussie.</string>
+    <string name="create_account_error">Erreur lors de la création du compte.</string>
+    <string name="sign_in_ok">Connexion réussie.</string>
+    <string name="sign_in_error">Erreur lors de la connexion de l\'utilisateur.</string>
+    <string name="pd_conn_user">Connexion de l\'utilisateur.</string>
+    <string name="pd_create_user">Création du compte de l\'utilisateur.</string>
+    <string name="fabAddItem">AJOUTER UN ARTICLE</string>
+    <string name="search">RECHERCHE</string>
+    <string name="settings">PARAMETRES</string>
+    <string name="add_item">AJOUTER UN ARTICLE</string>
+    <string name="item_titre">Titre de l\'article</string>
+    <string name="item_description">Description de l\'article</string>
+    <string name="addphoto">AJOUTER UNE IMAGE</string>
+    <string name="imArticle">PHOTO DE L\'ARTICLE.</string>
+    <string name="add_article">AJOUTER UN ARTICLE</string>
+    <string name="categorieArticle">Catégorie de l\'article.</string>
+    <string name="category_error">Erreur lors de la saisie de la catégorie de l\'article.</string>
+    <string name="titre_error">Erreur lors de la saisie du titre de l\'article.</string>
+    <string name="description_error">Erreur lors de la saisie de la description de l\'article.</string>
 </resources>
