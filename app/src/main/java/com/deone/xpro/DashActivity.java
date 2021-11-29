@@ -22,7 +22,6 @@ public class DashActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
     private ItemsAdapter itemsAdapter;
     private RecyclerView rvItems;
-    private FloatingActionButton fabAddItem;
     private String myUID;
 
     @Override
@@ -76,8 +75,7 @@ public class DashActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initUI() {
         rvItems = findViewById(R.id.rvItems);
-        fabAddItem = findViewById(R.id.fabAddItem);
-        fabAddItem.setOnClickListener(this);
+        findViewById(R.id.fabAddItem).setOnClickListener(this);
     }
 
     @Override

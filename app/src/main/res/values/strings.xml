@@ -30,4 +30,10 @@
     <string name="category_error">Erreur lors de la saisie de la catégorie de l\'article.</string>
     <string name="titre_error">Erreur lors de la saisie du titre de l\'article.</string>
     <string name="description_error">Erreur lors de la saisie de la description de l\'article.</string>
+    <string name="camera">CAMERA</string>
+    <string name="gallery">GALERIE</string>
+    <string name="select_image">Sellection d\'une image.</string>
+    <string name="question_image">Où voulez-vous sellectionner votre image ?</string>
+    <string name="enable_camera_permission">Veuillez activer les autorisations de caméra et de stockage.</string>
+    <string name="enable_storage_permission">Veuillez activer les autorisations de stockage.</string>
 </resources>
