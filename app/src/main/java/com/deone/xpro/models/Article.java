@@ -7,17 +7,24 @@ public class Article {
     private String aTitre;
     private String aDescription;
     private String aUid;
+    private String aUnom;
+    private String aUphoto;
 
     public Article() {
     }
 
-    public Article(String aId, String aDate, String aCategorie, String aTitre, String aDescription, String aUid) {
+    public Article(String aId, String aDate,
+                   String aCategorie, String aTitre,
+                   String aDescription, String aUid,
+                   String aUnom, String aUphoto) {
         this.aId = aId;
         this.aDate = aDate;
         this.aCategorie = aCategorie;
         this.aTitre = aTitre;
         this.aDescription = aDescription;
         this.aUid = aUid;
+        this.aUnom = aUnom;
+        this.aUphoto = aUphoto;
     }
 
     public String getaId() {
@@ -66,5 +73,21 @@ public class Article {
 
     public void setaUid(String aUid) {
         this.aUid = aUid;
+    }
+
+    public String getaUnom() {
+        return aUnom;
+    }
+
+    public void setaUnom(String aUnom) {
+        this.aUnom = aUnom;
+    }
+
+    public String getaUphoto() {
+        return aUphoto;
+    }
+
+    public void setaUphoto(String aUphoto) {
+        this.aUphoto = aUphoto;
     }
 }

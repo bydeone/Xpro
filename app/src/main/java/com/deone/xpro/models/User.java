@@ -4,5 +4,6 @@ public class User {
     private String uId;
     private String uNom;
     private String uTelephone;
+    private String uEmail;
     private String uDate;
 }

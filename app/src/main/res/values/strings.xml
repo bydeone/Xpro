@@ -36,4 +36,9 @@
     <string name="question_image">Où voulez-vous sellectionner votre image ?</string>
     <string name="enable_camera_permission">Veuillez activer les autorisations de caméra et de stockage.</string>
     <string name="enable_storage_permission">Veuillez activer les autorisations de stockage.</string>
+    <string name="add_new_article">Nouvel article</string>
+    <string name="add_new_message_article">Ajout d\'un nouvel article...</string>
+    <string name="operation_reussie">Ajout de l\'article réussie.</string>
+    <string name="check_email">VERIFIEZ VOTRE EMAIL</string>
+    <string name="email_indication">Saisissez votre adresse email afin de vous connecter à la lateforme Xpro.</string>
 </resources>

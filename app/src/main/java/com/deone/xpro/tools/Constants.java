@@ -8,4 +8,5 @@ public class Constants {
     public static final String GALLERY_TYPE = "images/*";
     public static final String IMAGE_TITLE = "Article image icon title";
     public static final String IMAGE_DESCRIPTION = "Article image icon description";
+    public static final String USER_EMAIL = "user email";
 }

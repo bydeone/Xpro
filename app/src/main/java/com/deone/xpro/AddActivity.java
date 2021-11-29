@@ -9,6 +9,7 @@ import static com.deone.xpro.tools.Constants.IMAGE_TITLE;
 import static com.deone.xpro.tools.Constants.STORAGE_REQUEST_CODE;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,13 +33,29 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
     private String myUID;
+    private String myNAME;
+    private String myAVATAR;
     private String[] cameraPermissions;
     private String[] storagePermissions;
     private Uri imageUri;
@@ -46,6 +63,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private AutoCompleteTextView actvCategorie;
     private EditText edtvItemtitre;
     private EditText edtvItemdescription;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,29 +72,38 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null){
+            if ("text/plain".equals(type)){
+                handleSendText(intent);
+            }else if (type.startsWith("image/*")){
+                handleSendImage(intent);
+            }
+        }
         checkUser();
     }
 
-    private void checkUser() {
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        if (mUser != null){
-            myUID = mUser.getUid();
-            initUI();
-        }else {
-            startActivity(new Intent(AddActivity.this, MainActivity.class));
-            finish();
+    private void handleSendText(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (sharedText != null){
+            edtvItemdescription.setText(sharedText);
         }
     }
 
-    private void initUI() {
-        cameraPermissions = new String[]{Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        imArticle = findViewById(R.id.imArticle);
-        actvCategorie = findViewById(R.id.actvCategorie);
-        edtvItemtitre = findViewById(R.id.edtvItemtitre);
-        edtvItemdescription = findViewById(R.id.edtvItemdescription);
-        findViewById(R.id.btAddarticle).setOnClickListener(this);
+    private void handleSendImage(Intent intent) {
+        Uri imageURI = (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        if (imageURI != null){
+            imageUri = imageURI;
+            imArticle.setImageURI(imageUri);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        checkUser();
+        super.onStart();
     }
 
     @Override
@@ -137,6 +164,41 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             default:
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btAddarticle){
+            addArticle();
+        }
+    }
+
+    private void checkUser() {
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        if (mUser != null){
+            myUID = mUser.getUid();
+            Query query = FirebaseDatabase.getInstance()
+                    .getReference("Users")
+                    .orderByKey().equalTo(myUID);
+            query.addValueEventListener(valUsers);
+            initUI();
+        }else {
+            startActivity(new Intent(AddActivity.this, MainActivity.class));
+            finish();
+        }
+    }
+
+    private void initUI() {
+        imageUri = null;
+        cameraPermissions = new String[]{Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        progressDialog = new ProgressDialog(this);
+        imArticle = findViewById(R.id.imArticle);
+        actvCategorie = findViewById(R.id.actvCategorie);
+        edtvItemtitre = findViewById(R.id.edtvItemtitre);
+        edtvItemdescription = findViewById(R.id.edtvItemdescription);
+        findViewById(R.id.btAddarticle).setOnClickListener(this);
     }
 
     private void addPhoto() {
@@ -205,13 +267,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         return result && result1;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btAddarticle){
-            addArticle();
-        }
-    }
-
     private void addArticle() {
         String categorie = actvCategorie.getText().toString().trim();
         String titre = edtvItemtitre.getText().toString().trim();
@@ -244,13 +299,100 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
-        saveArticle(
+        prepareData(
                 ""+categorie,
                 ""+titre,
                 ""+description);
     }
 
-    private void saveArticle(String categorie, String titre, String description) {
-
+    private void prepareData(String categorie, String titre, String description) {
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("aId", timestamp);
+        hashMap.put("aDate", timestamp);
+        hashMap.put("aCategorie", categorie);
+        hashMap.put("aTitre", titre);
+        hashMap.put("aDescription", description);
+        hashMap.put("aUid", myUID);
+        hashMap.put("aUnom", myNAME);
+        hashMap.put("aUphoto", myAVATAR);
+        saveArticle(hashMap, ""+timestamp);
     }
+
+    private void saveArticle(HashMap<String, String> hashMap, String timestamp) {
+        progressDialog.setTitle(getResources().getString(R.string.add_new_article));
+        progressDialog.setMessage(getResources().getString(R.string.add_new_message_article));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        if (imageUri != null){
+            saveCoverDatabase(hashMap, ""+timestamp);
+        }else{
+            uploadData(hashMap, ""+timestamp);
+        }
+    }
+
+    private void saveCoverDatabase(HashMap<String, String> hashMap, String timestamp) {
+        String filePathName = "Articles/" + "article_" + myUID + "_" + timestamp;
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathName);
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while(!uriTask.isSuccessful());
+                String downloadUri =uriTask.getResult().toString();
+                if (uriTask.isSuccessful()){
+                    hashMap.put("aCover", downloadUri);
+                    uploadData(hashMap, ""+timestamp);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(AddActivity.this,
+                        ""+e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void uploadData(HashMap<String, String> hashMap, String timestamp) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Xpro");
+        reference.child("Articles").child(timestamp).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        progressDialog.dismiss();
+                        Toast.makeText(AddActivity.this,
+                                getResources().getString(R.string.operation_reussie),
+                                Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(AddActivity.this,
+                        ""+e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private final ValueEventListener valUsers = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            for (DataSnapshot ds : snapshot.getChildren()){
+                myNAME = ds.child("uName").getValue(String.class);
+                myAVATAR = ds.child("uAvatar").getValue(String.class);
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
 }
