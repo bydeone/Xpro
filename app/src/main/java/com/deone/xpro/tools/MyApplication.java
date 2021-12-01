@@ -1,4 +1,4 @@
-package com.deone.xpro;
+package com.deone.xpro.tools;
 
 import android.app.Application;
 

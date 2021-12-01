@@ -37,8 +37,24 @@
     <string name="enable_camera_permission">Veuillez activer les autorisations de caméra et de stockage.</string>
     <string name="enable_storage_permission">Veuillez activer les autorisations de stockage.</string>
     <string name="add_new_article">Nouvel article</string>
-    <string name="add_new_message_article">Ajout d\'un nouvel article...</string>
+    <string name="add_new_message_article">Ajout d\'un nouvel article.</string>
     <string name="operation_reussie">Ajout de l\'article réussie.</string>
     <string name="check_email">VERIFIEZ VOTRE EMAIL</string>
     <string name="email_indication">Saisissez votre adresse email afin de vous connecter à la lateforme Xpro.</string>
+    <string name="cover_image">IMAGE DE L\'ARTICLE</string>
+    <string name="description_article">Description de l\'article</string>
+    <string name="titre_article">Titre de l\'article</string>
+    <string name="mail_sent">Un lien vient de vous être transmis dans votre boite mail.</string>
+    <string name="save_user_info_successfully">Sauvegarde des informations de l\'utilisateur réussie</string>
+    <string name="phone">Votre numéro de téléphone</string>
+    <string name="full_name">Votre nom complet</string>
+    <string name="name_error">Erreur lors de la saisie du nom de l\'utilisateur</string>
+    <string name="phone_error">Erreur lors de la saisie du numéro de téléphone de l\'utilisateur</string>
+    <string name="user_profile">Profile de l\'utilisateur</string>
+    <string name="user_message">Sauvegarde du profile de l\'utilisateur.</string>
+    <string name="number_view">17 Vues</string>
+    <string name="date_publication_article">Date de publication de l\'article</string>
+    <string name="details_publication_article">Publié le 10 Aout 2021 | 530 Vues</string>
+    <string name="item_details_pluriel">Publié le %s | %s Vue</string>
+    <string name="item_details">Publié le %s | %s Vues</string>
 </resources>

@@ -4,8 +4,11 @@ public class Article {
     private String aId;
     private String aDate;
     private String aCategorie;
+    private String aCover;
     private String aTitre;
     private String aDescription;
+    private String anVues;
+    private String anLikes;
     private String aUid;
     private String aUnom;
     private String aUphoto;
@@ -14,14 +17,18 @@ public class Article {
     }
 
     public Article(String aId, String aDate,
-                   String aCategorie, String aTitre,
-                   String aDescription, String aUid,
-                   String aUnom, String aUphoto) {
+                   String aCategorie, String aCover,
+                   String aTitre, String aDescription,
+                   String anVues, String anLikes,
+                   String aUid, String aUnom, String aUphoto) {
         this.aId = aId;
         this.aDate = aDate;
         this.aCategorie = aCategorie;
+        this.aCover = aCover;
         this.aTitre = aTitre;
         this.aDescription = aDescription;
+        this.anVues = anVues;
+        this.anLikes = anLikes;
         this.aUid = aUid;
         this.aUnom = aUnom;
         this.aUphoto = aUphoto;
@@ -51,6 +58,14 @@ public class Article {
         this.aCategorie = aCategorie;
     }
 
+    public String getaCover() {
+        return aCover;
+    }
+
+    public void setaCover(String aCover) {
+        this.aCover = aCover;
+    }
+
     public String getaTitre() {
         return aTitre;
     }
@@ -65,6 +80,22 @@ public class Article {
 
     public void setaDescription(String aDescription) {
         this.aDescription = aDescription;
+    }
+
+    public String getAnVues() {
+        return anVues;
+    }
+
+    public void setAnVues(String anVues) {
+        this.anVues = anVues;
+    }
+
+    public String getAnLikes() {
+        return anLikes;
+    }
+
+    public void setAnLikes(String anLikes) {
+        this.anLikes = anLikes;
     }
 
     public String getaUid() {

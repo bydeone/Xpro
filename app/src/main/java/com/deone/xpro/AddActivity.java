@@ -6,6 +6,7 @@ import static com.deone.xpro.tools.Constants.IMAGE_DESCRIPTION;
 import static com.deone.xpro.tools.Constants.IMAGE_PICK_CAMERA_CODE;
 import static com.deone.xpro.tools.Constants.IMAGE_PICK_GALLERY_CODE;
 import static com.deone.xpro.tools.Constants.IMAGE_TITLE;
+import static com.deone.xpro.tools.Constants.SHARE_FROM_OTHER_APP_TYPE;
 import static com.deone.xpro.tools.Constants.STORAGE_REQUEST_CODE;
 
 import android.Manifest;
@@ -14,6 +15,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -48,6 +50,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
@@ -76,28 +80,13 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         String action = intent.getAction();
         String type = intent.getType();
         if (Intent.ACTION_SEND.equals(action) && type != null){
-            if ("text/plain".equals(type)){
+            if (SHARE_FROM_OTHER_APP_TYPE.equals(type)){
                 handleSendText(intent);
-            }else if (type.startsWith("image/*")){
+            }else if (type.startsWith(GALLERY_TYPE)){
                 handleSendImage(intent);
             }
         }
         checkUser();
-    }
-
-    private void handleSendText(Intent intent) {
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (sharedText != null){
-            edtvItemdescription.setText(sharedText);
-        }
-    }
-
-    private void handleSendImage(Intent intent) {
-        Uri imageURI = (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        if (imageURI != null){
-            imageUri = imageURI;
-            imArticle.setImageURI(imageUri);
-        }
     }
 
     @Override
@@ -332,21 +321,32 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void saveCoverDatabase(HashMap<String, String> hashMap, String timestamp) {
+        //Compress Picture
+        Bitmap bmp = null;
+        try {
+            bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        byte[] fileInBytes = baos.toByteArray();
+
+        //Add compress picture in firebase storage
         String filePathName = "Articles/" + "article_" + myUID + "_" + timestamp;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathName);
-        storageReference.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isSuccessful());
-                String downloadUri =uriTask.getResult().toString();
-                if (uriTask.isSuccessful()){
-                    hashMap.put("aCover", downloadUri);
-                    uploadData(hashMap, ""+timestamp);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+        //storageReference.putFile(imageUri)
+        storageReference.putBytes(fileInBytes)
+                .addOnSuccessListener(taskSnapshot -> {
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uriTask.isSuccessful());
+
+                    String downloadUri =uriTask.getResult().toString();
+                    if (uriTask.isSuccessful()){
+                        hashMap.put("aCover", downloadUri);
+                        uploadData(hashMap, ""+timestamp);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
@@ -360,15 +360,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private void uploadData(HashMap<String, String> hashMap, String timestamp) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Xpro");
         reference.child("Articles").child(timestamp).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddActivity.this,
-                                getResources().getString(R.string.operation_reussie),
-                                Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+                .addOnSuccessListener(unused -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(AddActivity.this,
+                            getResources().getString(R.string.operation_reussie),
+                            Toast.LENGTH_SHORT).show();
+                    finish();
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -378,6 +375,21 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void handleSendText(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (sharedText != null){
+            edtvItemdescription.setText(sharedText);
+        }
+    }
+
+    private void handleSendImage(Intent intent) {
+        Uri imageURI = (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        if (imageURI != null){
+            imageUri = imageURI;
+            imArticle.setImageURI(imageUri);
+        }
     }
 
     private final ValueEventListener valUsers = new ValueEventListener() {
