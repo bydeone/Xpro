@@ -2,16 +2,21 @@ package com.deone.xpro;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.deone.xpro.adapters.ArticlesAdapter;
 import com.deone.xpro.adapters.XClicklistener;
@@ -35,15 +40,31 @@ public class DashActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView rvItems;
     private String myUID;
     private String mySEARCH;
+    private boolean checkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        configAppTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.pocket_expert));
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         checkUser();
+    }
+
+    private void configAppTheme() {
+        SharedPreferences mPrefs = getSharedPreferences("Theme", Context.MODE_PRIVATE);
+        checkMode = mPrefs.getBoolean("ThemeMode", false);
+
+        if (checkMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            Toast.makeText(this, "DARK MODE", Toast.LENGTH_SHORT).show();
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            Toast.makeText(this, "LIGHT MODE", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -55,10 +76,10 @@ public class DashActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem  mSearch = menu.findItem(R.id.seach);
+        /*MenuItem  mSearch = menu.findItem(R.id.seach);
         SearchView searchView = (SearchView) mSearch.getActionView();
         searchView.setQueryHint(getResources().getString(R.string.search));
-        manageSearchView(searchView);
+        manageSearchView(searchView);*/
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_transp"
     tools:context=".AddActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -39,7 +38,9 @@
         android:background="@color/white"
         android:hint="@string/categorieArticle"
         android:inputType="text"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:textColor="@color/green"
+        android:textColorHint="@color/green" />
 
     <EditText
         android:id="@+id/edtvItemtitre"
@@ -52,7 +53,9 @@
         android:background="@color/white"
         android:hint="@string/item_titre"
         android:inputType="text"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:textColor="@color/green"
+        android:textColorHint="@color/green" />
 
     <EditText
         android:id="@+id/edtvItemdescription"
@@ -62,25 +65,26 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:gravity="top"
-        android:minHeight="230dp"
+        android:layout_above="@+id/btAddarticle"
         android:background="@color/white"
+        android:gravity="top"
         android:hint="@string/item_description"
         android:inputType="text"
-        android:padding="20dp" />
+        android:minHeight="200dp"
+        android:padding="20dp"
+        android:textColor="@color/green"
+        android:textColorHint="@color/green" />
 
     <Button
         android:id="@+id/btAddarticle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtvItemdescription"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="?attr/colorPrimary"
         android:text="@string/add_article" />
 
 </RelativeLayout>

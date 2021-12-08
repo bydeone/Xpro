@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -57,6 +58,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.utilisateur_profile));
+        setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         checkUser();
     }

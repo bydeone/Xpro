@@ -6,7 +6,7 @@
     <string name="confpass">Confirmez votre mot de passe</string>
     <string name="conn">CONNEXION</string>
     <string name="creationaccount">CREER VOTRE COMPTE</string>
-    <string name="newaccount">Créer un nouveau compte</string>
+    <string name="newaccount">Création d\'un nouveau compte</string>
     <string name="ihaveaccount">j\'ai un compte</string>
     <string name="email_error">Erreur lors de la saisie de l\'adresse email.</string>
     <string name="password_error">Erreur lors de la saisie du mot de passe.</string>
@@ -57,4 +57,30 @@
     <string name="details_publication_article">Publié le 10 Aout 2021 | 530 Vues</string>
     <string name="item_details_pluriel">Publié le %s | %s Vue</string>
     <string name="item_details">Publié le %s | %s Vues</string>
+    <string name="maj_profile">MAJ PROFILE</string>
+    <string name="forget_password">Mot de passe oublié</string>
+    <string name="utilisateur_profile">Profile de l\'utilisateur</string>
+    <string name="pocket_expert">Votre expert de poche</string>
+    <string name="new_article">Nouvel article</string>
+    <string name="your_settings">Vos paramètres</string>
+    <string name="article_legende">Cet article a été publié le 10 Août 2021 à 10H15</string>
+    <string name="comments">Commentaires</string>
+    <string name="share_article">Partager cet article</string>
+    <string name="warning_article">Signaler cet article</string>
+    <string name="collapse_logo">LOGO COLLAPSING TOOLBAR</string>
+    <string name="nom_de_l_utilisateur">Nom de l\'utilisateur</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="article">Article</string>
+    <string name="commentaires">Commentaires</string>
+    <string name="app_mode">Mode d\'affichage (Ligth Mode)</string>
+    <string name="app_mode_ligth">Mode d\'affichage (Ligth Mode)</string>
+    <string name="app_mode_darck">Mode d\'affichage (Darck Mode)</string>
+    <string name="oui">OUI</string>
+    <string name="non">NON</string>
+    <string name="activate_dark_mode">Activation du DARK MODE</string>
+    <string name="dark_mode">Voulez vous activer le DARK MODE ?</string>
+    <string name="ligth_mode">Voulez vous désactiver le DARK MODE ?</string>
+    <string name="app_language">Langue(Francais)</string>
+    <string name="whatsapp_phone">Téléphone whatsapp</string>
 </resources>

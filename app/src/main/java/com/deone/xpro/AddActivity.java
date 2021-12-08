@@ -12,7 +12,6 @@ import static com.deone.xpro.tools.Constants.STORAGE_REQUEST_CODE;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -36,7 +35,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +46,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -74,6 +71,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getString(R.string.new_article));
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         Intent intent = getIntent();
@@ -191,29 +189,25 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void addPhoto() {
-        String[] options = {getResources().getString(R.string.camera),
-                getResources().getString(R.string.gallery)};
+        String[] options = {getResources().getString(R.string.camera), getResources().getString(R.string.gallery)};
         AlertDialog.Builder builder = new AlertDialog.Builder(AddActivity.this);
         builder.setTitle(getResources().getString(R.string.select_image));
         builder.setMessage(getResources().getString(R.string.question_image));
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case 0 :
-                        if (!checkCameraPermissions())
-                            requestCameraPermissions();
-                        else 
-                            pickFromCamera();
-                        break;
-                    case 1:
-                        if (!checkStoragePermissions())
-                            requestStoragePermissions();
-                        else
-                            pickFromGallery();
-                        break;
-                    default:
-                }
+        builder.setItems(options, (dialog, which) -> {
+            switch (which){
+                case 0 :
+                    if (!checkCameraPermissions())
+                        requestCameraPermissions();
+                    else
+                        pickFromCamera();
+                    break;
+                case 1:
+                    if (!checkStoragePermissions())
+                        requestStoragePermissions();
+                    else
+                        pickFromGallery();
+                    break;
+                default:
             }
         });
         builder.create().show();

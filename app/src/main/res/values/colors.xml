@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#0C4C27</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_200">#008000</color>
+    <color name="purple_500">#397D02</color>
+    <color name="purple_700">#003300</color>
     <color name="teal_200">#0C4C27</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="marron">#960200</color>
+    <color name="bleu_marine">#59c3c3</color>
+    <color name="bleu">#000080</color>
+    <color name="orange">#fdb589</color>
+    <color name="rose">#f72a66</color>
     <color name="green">#0C4C27</color>
-    <color name="green_transp">#550C4C27</color>
+    <color name="bg_light">#55BCED91</color>
+    <color name="bg_dark">#EEBCED91</color>
+    <!-- Ma palette Ligth Mode. -->
+    <color name="lm_green_0">#234d20</color>
+    <color name="lm_green_1">#36802d</color>
+    <color name="lm_green_2">#77ab59</color>
+    <color name="lm_green_3">#c9df8a</color>
+    <color name="lm_green_4">#f0f7da</color>
+    <!-- Ma palette Darck Mode. -->
+    <color name="dm_gray_0">#111111</color>
+    <color name="dm_gray_1">#333333</color>
+    <color name="dm_gray_2">#555555</color>
+    <color name="dm_gray_3">#777777</color>
+    <color name="dm_gray_4">#999999</color>
+    <!-- Ma transparence. -->
+    <color name="bleu_marine_transp">#9959c3c3</color>
+    <color name="rose_transp">#99f72a66</color>
+    <color name="green_transp">#989898</color>
+    <color name="lm_green_2_transp">#9977ab59</color>
+    <color name="dm_gray_2_transp">#99555555</color>
+
 </resources>

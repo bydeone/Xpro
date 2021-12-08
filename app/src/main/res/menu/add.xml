@@ -5,6 +5,5 @@
         android:id="@+id/addphoto"
         android:icon="@drawable/ic_action_add_picture"
         android:title="@string/addphoto"
-        app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|withText" />
 </menu>

@@ -2,15 +2,19 @@
     <!-- Base application theme. -->
     <style name="Theme.Xpro" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/dm_gray_1</item>
+        <item name="colorPrimaryVariant">@color/dm_gray_0</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/dm_gray_2</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/dm_gray_4</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="background_ll">@color/dm_gray_2_transp</item>
+        <item name="background_edtv">@color/lm_green_2_transp</item>
     </style>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="linearlayout_th">
+        <attr name="background_ll" format="color" />
+    </declare-styleable>
+    <declare-styleable name="edittext_th">
+        <attr name="background_edtv" format="color" />
+    </declare-styleable>
+</resources>

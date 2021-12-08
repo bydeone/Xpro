@@ -13,4 +13,7 @@ public class Constants {
     public static final String ANDROID_PACKAGE_NAME = "com.deone.xpro";
     public static final String MINIMUM_VERSION = "12";
     public static final String FORMAT_DATE = "dd MMMM yyyy";
+    public static final String CONF_APP = "Theme";
+    public static final String THEME_MODE = "ThemeMode";
+    public static final String APP_LANGUAGE = "AppLanguage";
 }

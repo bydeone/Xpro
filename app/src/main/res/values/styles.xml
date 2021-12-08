@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="dark_button">
+        <item name="android:textColor">@color/dm_gray_2</item>
+    </style>
+
+    <style name="light_button">
+        <item name="android:textColor">@color/lm_green_2</item>
+    </style>
+
+    <style name="dark_editText_background">
+        <item name="android:textColor">@color/dm_gray_4</item>
+    </style>
+
+    <style name="light_editText_background">
+        <item name="android:textColor">@color/lm_green_4</item>
+    </style>
+
+</resources>

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,17 +13,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edtvLogin;
     private EditText edtvPassword;
+    private EditText edtvConfPassword;
+    private Button btLogCreate;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create);
         mAuth = FirebaseAuth.getInstance();
         checkUser();
     }
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checkUser() {
         FirebaseUser mUser = mAuth.getCurrentUser();
         if (mUser != null){
-            startActivity(new Intent(MainActivity.this, DashActivity.class));
+            startActivity(new Intent(CreateActivity.this, DashActivity.class));
             finish();
         }else {
             initUI();
@@ -41,25 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog = new ProgressDialog(this);
         edtvLogin = findViewById(R.id.edtvLogin);
         edtvPassword = findViewById(R.id.edtvPassword);
-        findViewById(R.id.tvNewaccount).setOnClickListener(this);
-        findViewById(R.id.tvResetPassword).setOnClickListener(this);
-        findViewById(R.id.btLogCreate).setOnClickListener(this);
+        edtvConfPassword = findViewById(R.id.edtvConfPassword);
+        btLogCreate = findViewById(R.id.btLogCreate);
+        btLogCreate.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.tvNewaccount){
-            startActivity(new Intent(MainActivity.this, CreateActivity.class));
-            finish();
-        }else if(v.getId() == R.id.tvResetPassword){
-            resetPassword();
-        }else if(v.getId() == R.id.btLogCreate){
+        if(v.getId() == R.id.btLogCreate){
             verifSaisie();
         }
-    }
-
-    private void resetPassword() {
-
     }
 
     private void verifSaisie() {
@@ -68,43 +62,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = edtvLogin.getText().toString().trim();
         String password = edtvPassword.getText().toString().trim();
         if (email.isEmpty()){
-            Toast.makeText(MainActivity.this,
+            Toast.makeText(CreateActivity.this,
                     getResources().getString(R.string.email_error),
                     Toast.LENGTH_SHORT).show();
             return;
         }
         if (password.isEmpty()){
-            Toast.makeText(MainActivity.this,
+            Toast.makeText(CreateActivity.this,
                     getResources().getString(R.string.password_error),
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage(getResources().getString(R.string.pd_conn_user));
-        connectUser(
+        String confirm = edtvConfPassword.getText().toString().trim();
+        createNewAccount(
+                ""+email,
+                ""+password,
+                ""+confirm
+        );
+    }
+
+    private void createNewAccount(String email, String password, String confirm) {
+        if (!password.equals(confirm)){
+            Toast.makeText(CreateActivity.this,
+                    getResources().getString(R.string.password_conf_error),
+                    Toast.LENGTH_SHORT).show();
+            btLogCreate.setEnabled(true);
+            return;
+        }
+        progressDialog.setMessage(getResources().getString(R.string.pd_create_user));
+        createAccount(
                 ""+email,
                 ""+password
         );
     }
 
-    private void connectUser(String email, String password) {
+    private void createAccount(String email, String password) {
         progressDialog.show();
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        Toast.makeText(MainActivity.this,
-                                ""+getResources().getString(R.string.sign_in_ok),
-                                Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
-
-                        startActivity(new Intent(MainActivity.this, DashActivity.class));
+                        Toast.makeText(CreateActivity.this,
+                                ""+getResources().getString(R.string.create_account_ok),
+                                Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(CreateActivity.this, ProfileActivity.class));
                         finish();
                     }else {
-                        Toast.makeText(MainActivity.this,
-                                ""+getResources().getString(R.string.sign_in_error),
+                        Toast.makeText(CreateActivity.this,
+                                ""+getResources().getString(R.string.create_account_error),
                                 Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(CreateActivity.this, MainActivity.class));
+        finish();
+        super.onBackPressed();
+    }
 }
